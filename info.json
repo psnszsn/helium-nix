@@ -1,0 +1,28 @@
+{
+  "heliumVersion": "0.9.2",
+  "chromiumVersion": "145.0.7632.109",
+  "deps": {
+    "helium": {
+      "rev": "643674676da7c3ec0e024d0e6834356123cc9df4",
+      "hash": "sha256-NcvPbXLiucnONFD00G0P/lhu2KwkAx8ubeL8AUdYfdE="
+    },
+    "helium-linux": {
+      "rev": "fadb56000868fbdc1662645b644cf75b756e5ebf",
+      "hash": "sha256-I2LfUHNXUGdl7LvQ9Ms1qIDfm08JXWAfsyq79XtSgkY="
+    },
+    "extras": {
+      "ublock": {
+        "url": "https://github.com/imputnet/uBlock/releases/download/1.69.0-2/uBlock0_1.69.0-2.chromium.zip",
+        "hash": "sha256-/cBgdTgIK0CYM6zSqA86LWV7KvcIE6mo6OXHqZOPfik="
+      },
+      "onboarding": {
+        "url": "https://github.com/imputnet/helium-onboarding/releases/download/202601021937/helium-onboarding-202601021937.tar.gz",
+        "hash": "sha256-yKH5Bs9kYRedT9MRxSnw+OAfshtj7xefWTokGQxdyoA="
+      },
+      "searchEngines": {
+        "url": "https://gist.githubusercontent.com/wukko/2a591364dda346e10219e4adabd568b1/raw/e75ae3c4a1ce940ef7627916a48bc40882d24d40/nonfree-search-engines-data.tar.gz",
+        "hash": "sha256-AKhwUPo/lB0E1n+1djmR4LjqOZqItQWrDlbdJj8Ghkw="
+      }
+    }
+  }
+}

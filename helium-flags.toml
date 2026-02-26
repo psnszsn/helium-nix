@@ -1,0 +1,27 @@
+# Helium-specific GN flags
+# Combined from helium/flags.gn and helium-linux/flags.linux.gn
+# Only flags that differ from or add to what common.nix already sets
+
+# Privacy/telemetry
+safe_browsing_mode = 0
+enable_mdns = false
+enable_remoting = false
+enable_reporting = false
+enable_service_discovery = false
+use_official_google_api_keys = false
+use_unofficial_version_number = false
+
+# Disable Google API keys
+google_api_key = ""
+google_default_client_id = ""
+google_default_client_secret = ""
+
+# Build options
+build_with_tflite_lib = false
+enable_hangout_services_extension = false
+exclude_unwind_tables = true
+
+# Linux-specific
+blink_enable_generated_code_formatting = false
+fatal_linker_warnings = false
+use_kerberos = false
