@@ -26,6 +26,10 @@ Requires ~16GB RAM and several hours to compile.
 nix profile add .#helium-browser
 ```
 
+## Iterative development
+
+Add `breakpointHook` to `nativeBuildInputs` in `package.nix` and `exit 1` where you want to pause (e.g. start of `installPhase`), then run `nix build`. When the build pauses, attach from another terminal with `sudo cntr attach <pid>` (`nix profile install nixpkgs#cntr`) to get an interactive shell inside the sandbox with full build tree and incremental ninja.
+
 ## Overlay
 
 ```nix

@@ -160,15 +160,29 @@ let
           || cp -v "$buildPath/chrome.1" "$out/share/man/man1/$packageName.1" \
           || echo "warning: man page not found, skipping"
 
-        for icon_file in chrome/app/theme/chromium/product_logo_*[0-9].png; do
-          num_and_suffix="''${icon_file##*logo_}"
-          icon_size="''${num_and_suffix%.*}"
-          expr "$icon_size" : "^[0-9][0-9]*$" || continue
-          logo_output_prefix="$out/share/icons/hicolor"
-          logo_output_path="$logo_output_prefix/''${icon_size}x''${icon_size}/apps"
-          mkdir -vp "$logo_output_path"
-          cp -v "$icon_file" "$logo_output_path/$packageName.png"
+        # Install regular size icons
+        for size in 24 48 64 128 256; do
+          icon_file="chrome/app/theme/chromium/product_logo_''${size}.png"
+          if [ -f "$icon_file" ]; then
+            install -Dvm644 "$icon_file" \
+              "$out/share/icons/hicolor/''${size}x''${size}/apps/$packageName.png"
+          fi
         done
+
+        # Install small icons from 100% density source
+        for size in 16 32; do
+          icon_file="chrome/app/theme/default_100_percent/chromium/product_logo_''${size}.png"
+          if [ -f "$icon_file" ]; then
+            install -Dvm644 "$icon_file" \
+              "$out/share/icons/hicolor/''${size}x''${size}/apps/$packageName.png"
+          fi
+        done
+
+        # Install scalable SVG icon
+        if [ -f "chrome/app/theme/chromium/product_logo.svg" ]; then
+          install -Dvm644 chrome/app/theme/chromium/product_logo.svg \
+            "$out/share/icons/hicolor/scalable/apps/$packageName.svg"
+        fi
 
         # Install Desktop Entry
         install -D chrome/installer/linux/common/desktop.template \
