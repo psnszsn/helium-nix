@@ -27,10 +27,11 @@
   pkgsBuildBuild,
   buildPackages,
   python3Packages,
+  breakpointHook,
   # package customization
   enableWideVine ? false,
   commandLineArgs ? "",
-  withGpu ? true, # bundle Mesa/libglvnd for non-NixOS systems
+  enableBreakpoint ? false, # add breakpointHook for iterative development
 }:
 
 let
@@ -71,9 +72,19 @@ let
 
       sandboxExecutableName = "__chromium-suid-sandbox";
 
+      # Filter out nixpkgs patches guarded by `!ungoogled` — Helium includes
+      # its own version of these via its ungoogled-chromium patch set.
+      patches = builtins.filter (p:
+        let name = builtins.toString p; in
+        !lib.hasSuffix "build-with-wasm-rollup.patch" name
+        && !lib.hasSuffix "revert-Add-finch-seeds-to-desktop-perf-builds.patch" name
+      ) base.patches;
+
       nativeBuildInputs = base.nativeBuildInputs ++ [
         python3Packages.pillow
         buildPackages.unzip
+      ] ++ lib.optionals enableBreakpoint [
+        breakpointHook
       ];
 
       postPatch =
@@ -277,7 +288,6 @@ stdenv.mkDerivation {
         gtk3
         gtk4
         libkrb5
-      ] ++ lib.optionals withGpu [
         mesa
         libglvnd
       ]);
@@ -288,10 +298,10 @@ stdenv.mkDerivation {
       makeWrapper "${browserBinary}" "$out/bin/helium" \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
         --add-flags ${lib.escapeShellArg commandLineArgs} \
-        ${lib.optionalString withGpu ''--set-default LIBGL_DRIVERS_PATH "${mesa}/lib/dri"''} \
-        ${lib.optionalString withGpu ''--set-default GBM_BACKENDS_PATH "${mesa}/lib/gbm"''} \
-        ${lib.optionalString withGpu ''--set-default LIBVA_DRIVERS_PATH "${mesa}/lib/dri"''} \
-        ${lib.optionalString withGpu ''--set-default __EGL_VENDOR_LIBRARY_FILENAMES "${mesa}/share/glvnd/egl_vendor.d/50_mesa.json"''}
+        --set-default LIBGL_DRIVERS_PATH "${mesa}/lib/dri" \
+        --set-default GBM_BACKENDS_PATH "${mesa}/lib/gbm" \
+        --set-default LIBVA_DRIVERS_PATH "${mesa}/lib/dri" \
+        --set-default __EGL_VENDOR_LIBRARY_FILENAMES "${mesa}/share/glvnd/egl_vendor.d/50_mesa.json"
 
       ed -v -s "$out/bin/helium" << EOF
       2i

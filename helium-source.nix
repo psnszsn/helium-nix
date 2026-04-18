@@ -69,10 +69,6 @@ stdenv.mkDerivation {
     # Don't prune paths that nixpkgs symlinks its own binaries into.
     sed -i "/third_party\/node\/linux/d;/third_party\/jdk\/current/d" $out/utils/prune_binaries.py
 
-    # Skip wasm-rollup patch — nixpkgs handles rollup/esbuild with its own
-    # reverts and we let them run. Helium's patch conflicts with that state.
-    sed -i '/build-with-wasm-rollup\.patch/d' $out/patches/series
-
     wrapProgram $out/utils/patches.py --add-flags "apply" --prefix PATH : "${patch}/bin"
   '';
 }
