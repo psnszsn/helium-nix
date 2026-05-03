@@ -1,14 +1,14 @@
 {
-  "heliumVersion": "0.11.3",
-  "chromiumVersion": "147.0.7727.101",
+  "heliumVersion": "0.11.7",
+  "chromiumVersion": "147.0.7727.137",
   "deps": {
     "helium": {
-      "rev": "603b96d4de85deac64de58df1c52eaca6b6c6412",
-      "hash": "sha256-6fHtPxWVUpWh5ZgtAwyp72qAWnJQ72YWv48s8gFKHuo="
+      "rev": "7330d5770912745a3a208c19c86d75ff42081a69",
+      "hash": "sha256-87sgs1iv30eD7vRfSV7iMUoz/yKU26Z/1gD27zSA+UU="
     },
     "helium-linux": {
-      "rev": "7127265f902d4b9db81e76670195e1f37fc3b5f6",
-      "hash": "sha256-d+EWjiKyhEsBTOlrsDA7h8RrTjAgPtXUt3KVc6baKeU="
+      "rev": "a2f192bee2d6ab0a7bebf2e8c478fb87aad89602",
+      "hash": "sha256-Mj/q6rcXpMJNs1xxcigHsCx3yiGczrFH0EKeHLmP2bE="
     },
     "extras": {
       "ublock": {
