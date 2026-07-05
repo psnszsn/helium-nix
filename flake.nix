@@ -2,7 +2,7 @@
   description = "Helium - privacy-focused Chromium-based browser";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
   };
 
   outputs =

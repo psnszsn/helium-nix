@@ -1,23 +1,23 @@
 {
-  "heliumVersion": "0.11.7",
-  "chromiumVersion": "147.0.7727.137",
+  "heliumVersion": "0.14.2",
+  "chromiumVersion": "150.0.7871.46",
   "deps": {
     "helium": {
-      "rev": "7330d5770912745a3a208c19c86d75ff42081a69",
-      "hash": "sha256-87sgs1iv30eD7vRfSV7iMUoz/yKU26Z/1gD27zSA+UU="
+      "rev": "9fb4aee359ba44b10b7d993e973da2fd2b7060e4",
+      "hash": "sha256-KO+nKo9khALG9pBrUJFq5kXBau/nJZqUTdZVgLO/Vcw="
     },
     "helium-linux": {
-      "rev": "a2f192bee2d6ab0a7bebf2e8c478fb87aad89602",
-      "hash": "sha256-Mj/q6rcXpMJNs1xxcigHsCx3yiGczrFH0EKeHLmP2bE="
+      "rev": "d87bd8fe058ee94e7c7a66e6c0faa5f32489799c",
+      "hash": "sha256-WcdMvjhE1FEbtvCPA5cChw7aufqlSYQHmztad/P6l7E="
     },
     "extras": {
       "ublock": {
-        "url": "https://github.com/imputnet/uBlock/releases/download/1.70.0/uBlock0_1.70.0.chromium.zip",
-        "hash": "sha256-02rSUVyNrJB9F65W0BXJHJf+J5gPyh3HV10N/bpo4NQ="
+        "url": "https://github.com/imputnet/uBlock/releases/download/1.71.0/uBlock0_1.71.0.chromium.zip",
+        "hash": "sha256-N5dQG5CDxDHYdvE42KWUoT2TGSXEb3WHdhLS1UikaY4="
       },
       "onboarding": {
-        "url": "https://github.com/imputnet/helium-onboarding/releases/download/202603080703/helium-onboarding-202603080703.tar.gz",
-        "hash": "sha256-aIPpDXvcpXKjf6WE28YFBNXyByo5na9YzcPRyXZOtQg="
+        "url": "https://github.com/imputnet/helium-onboarding/releases/download/202606171625/helium-onboarding-202606171625.tar.gz",
+        "hash": "sha256-HNedqdrzkVJPEwtaOi6T2H63v4gv9jQasU2hovfm6+U="
       },
       "searchEngines": {
         "url": "https://gist.githubusercontent.com/wukko/2a591364dda346e10219e4adabd568b1/raw/e75ae3c4a1ce940ef7627916a48bc40882d24d40/nonfree-search-engines-data.tar.gz",

@@ -17,7 +17,6 @@ google_default_client_id = ""
 google_default_client_secret = ""
 
 # Build options
-build_with_tflite_lib = false
 enable_hangout_services_extension = false
 exclude_unwind_tables = true
 

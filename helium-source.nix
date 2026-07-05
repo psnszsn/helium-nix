@@ -66,8 +66,7 @@ stdenv.mkDerivation {
       )
     )}
 
-    # Don't prune paths that nixpkgs symlinks its own binaries into.
-    sed -i "/third_party\/node\/linux/d;/third_party\/jdk\/current/d" $out/utils/prune_binaries.py
+    sed -i "/third_party\/node\/linux/d;/third_party\/jdk\/current/d;/third_party\/gperf\/cipd/d;/third_party\/rust-toolchain/d" $out/utils/prune_binaries.py
 
     wrapProgram $out/utils/patches.py --add-flags "apply" --prefix PATH : "${patch}/bin"
   '';
