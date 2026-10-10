@@ -66,7 +66,9 @@ stdenv.mkDerivation {
       )
     )}
 
-    sed -i "/third_party\/node\/linux/d;/third_party\/jdk\/current/d;/third_party\/gperf\/cipd/d;/third_party\/rust-toolchain/d" $out/utils/prune_binaries.py
+    # Nixpkgs needs this source patch when installing its TypeScript compiler.
+    substituteInPlace $out/utils/prune_binaries.py \
+      --replace-fail 'KEEP_FILES = (' "KEEP_FILES = ('third_party/typescript/linux-amd64/3pp/patches/typescript_native_preview.patch',"
 
     wrapProgram $out/utils/patches.py --add-flags "apply" --prefix PATH : "${patch}/bin"
   '';

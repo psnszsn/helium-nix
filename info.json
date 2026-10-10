@@ -1,27 +1,27 @@
 {
-  "heliumVersion": "0.14.2",
-  "chromiumVersion": "150.0.7871.46",
+  "heliumVersion": "0.19.2",
+  "chromiumVersion": "155.0.8059.39",
   "deps": {
     "helium": {
-      "rev": "9fb4aee359ba44b10b7d993e973da2fd2b7060e4",
-      "hash": "sha256-KO+nKo9khALG9pBrUJFq5kXBau/nJZqUTdZVgLO/Vcw="
+      "rev": "9aa23f3cd9e5e6bcb91c8c8029b738e8da2de493",
+      "hash": "sha256-ZYch2HxriP3pV67aYPcTahEhvyzdvcStkA5tQVgDvGU="
     },
     "helium-linux": {
-      "rev": "d87bd8fe058ee94e7c7a66e6c0faa5f32489799c",
-      "hash": "sha256-WcdMvjhE1FEbtvCPA5cChw7aufqlSYQHmztad/P6l7E="
+      "rev": "714f30178ebb78c22229094f4b989c5d2e199b40",
+      "hash": "sha256-yr5JIGRdE9t2lFQfN6UVqb39WG85IfcnJD3zQ5dqQCk="
     },
     "extras": {
       "ublock": {
-        "url": "https://github.com/imputnet/uBlock/releases/download/1.71.0/uBlock0_1.71.0.chromium.zip",
-        "hash": "sha256-N5dQG5CDxDHYdvE42KWUoT2TGSXEb3WHdhLS1UikaY4="
+        "url": "https://github.com/imputnet/uBlock/releases/download/1.75.0/uBlock0_1.75.0.chromium.zip",
+        "hash": "sha256-SSFGdPfGxHTmDaZHwFvShGOx96VbKisKU+nSl+9788Y="
       },
       "onboarding": {
-        "url": "https://github.com/imputnet/helium-onboarding/releases/download/202606171625/helium-onboarding-202606171625.tar.gz",
-        "hash": "sha256-HNedqdrzkVJPEwtaOi6T2H63v4gv9jQasU2hovfm6+U="
+        "url": "https://github.com/imputnet/helium-onboarding/releases/download/202609160835/helium-onboarding-202609160835.tar.gz",
+        "hash": "sha256-Nc54LclTS1v/Wa95N/IskBecqWEIg6yy4NaYzG95k2Y="
       },
       "searchEngines": {
-        "url": "https://gist.githubusercontent.com/wukko/2a591364dda346e10219e4adabd568b1/raw/e75ae3c4a1ce940ef7627916a48bc40882d24d40/nonfree-search-engines-data.tar.gz",
-        "hash": "sha256-AKhwUPo/lB0E1n+1djmR4LjqOZqItQWrDlbdJj8Ghkw="
+        "url": "https://github.com/imputnet/helium-nonfree-assets/releases/download/202609082320/nonfree-search-engines-data-202609082320.tar.gz",
+        "hash": "sha256-Ko1jr0FFREbWS7Xxl4bZCEGSZfFSra/whxMtjgzaUac="
       }
     }
   }

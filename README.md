@@ -5,14 +5,17 @@ Nix package for [Helium](https://github.com/imputnet/helium)
 ## Build
 
 ```bash
-# without GPU drivers (NixOS)
 nix build .#helium-browser
-
-# with bundled GPU drivers (non-NixOS)
-nix build .#helium-browser-gpu
 ```
 
-Requires ~16GB RAM and several hours to compile.
+Compilation is memory intensive and can take several hours. Parallel compilation
+is capped at 8 jobs; override `maxBuildJobs` to adjust this for your builder.
+
+To build exclusively on the configured remote servers:
+
+```bash
+nix build .#helium-browser --builders @/etc/nix/machines --max-jobs 0
+```
 
 ## Run
 

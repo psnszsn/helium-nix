@@ -32,6 +32,7 @@
   enableWideVine ? false,
   commandLineArgs ? "",
   enableBreakpoint ? false, # add breakpointHook for iterative development
+  maxBuildJobs ? 8,
 }:
 
 let
@@ -72,12 +73,13 @@ let
 
       sandboxExecutableName = "__chromium-suid-sandbox";
 
-      # Filter out nixpkgs patches guarded by `!ungoogled` — Helium includes
-      # its own version of these via its ungoogled-chromium patch set.
+      # Helium already supplies these fixes in its own patch set.
       patches = builtins.filter (p:
         let name = builtins.toString p; in
         !lib.hasSuffix "build-with-wasm-rollup.patch" name
         && !lib.hasSuffix "revert-Add-finch-seeds-to-desktop-perf-builds.patch" name
+        && !lib.hasSuffix "revert-Show-Linux-first-run-terms-of-service-dialog-by-default.patch" name
+        && !lib.hasSuffix "revert-DEPS-use-DEPS-provided-python-instead-of-a-system-one.patch" name
       ) base.patches;
 
       nativeBuildInputs = base.nativeBuildInputs ++ [
@@ -87,12 +89,15 @@ let
         breakpointHook
       ];
 
-      postPatch =
-        base.postPatch
-        + ''
-          # Helium: prune binaries
-          ${helium-source}/utils/prune_binaries.py . ${helium-source}/pruning.list || echo "some errors"
+      # V8 compilation can exhaust memory when using every core on a large builder.
+      preBuild = (base.preBuild or "") + ''
+        if (( NIX_BUILD_CORES > ${toString maxBuildJobs} )); then
+          NIX_BUILD_CORES=${toString maxBuildJobs}
+        fi
+      '';
 
+      postPatch =
+        ''
           # Helium: unpack extras before patches (patches modify ublock files)
           mkdir -p third_party/ublock
           ${buildPackages.unzip}/bin/unzip -o ${helium-source}/extras/ublock -d third_party/ublock
@@ -107,9 +112,11 @@ let
           mkdir -p third_party/search_engines_data/resources_internal
           tar xzf ${helium-source}/extras/searchEngines -C third_party/search_engines_data/resources_internal
 
-          # Re-create dirs that pruning may have removed
-          mkdir -p third_party/jdk/current/bin
-
+          # Prune before Nixpkgs installs its build tools into the source tree.
+          ${helium-source}/utils/prune_binaries.py . ${helium-source}/pruning.list || echo "some errors"
+        ''
+        + base.postPatch
+        + ''
           # Helium: apply patches (main + linux-specific)
           ${helium-source}/utils/patches.py . ${helium-source}/patches
           ${helium-source}/utils/patches.py . ${helium-source}/helium-linux/patches
@@ -123,6 +130,9 @@ let
           # Helium: name substitution (Chromium -> Helium branding)
           python3 ${helium-source}/utils/name_substitution.py --sub \
             -t . --backup-path helium-namesubs.tar.gz
+
+          # Helium: apply translated strings after name substitution
+          python3 ${helium-source}/utils/i18n_apply.py -t .
 
           # Helium: version stamping
           python3 ${helium-source}/utils/helium_version.py \
@@ -201,13 +211,18 @@ let
 
         substituteInPlace $out/share/applications/helium-browser.desktop \
           --replace-fail "${ifElseM145 "@@MENUNAME" "@@MENUNAME@@"}" "Helium" \
-          --replace-fail "${ifElseM145 "@@PACKAGE" "@@PACKAGE@@"}" "helium" \
-          --replace-fail "${ifElseM145 "/usr/bin/@@usr_bin_symlink_name" "/usr/bin/@@USR_BIN_SYMLINK_NAME@@"}" "helium" \
+          --replace-fail "${if chromiumVersionAtLeast "154" then "@@desktop_icon" else ifElseM145 "@@PACKAGE" "@@PACKAGE@@"}" "helium" \
+          --replace-fail "${if chromiumVersionAtLeast "154" then "@@desktop_exec" else ifElseM145 "/usr/bin/@@usr_bin_symlink_name" "/usr/bin/@@USR_BIN_SYMLINK_NAME@@"}" "helium" \
           --replace-fail "${ifElseM145 "@@uri_scheme" "@@URI_SCHEME@@"}" "x-scheme-handler/helium;" \
           --replace-fail "${ifElseM145 "@@extra_desktop_entries" "@@EXTRA_DESKTOP_ENTRIES@@"}" ""
 
+        ${if chromiumVersionAtLeast "154" then ''
+        substituteInPlace $out/share/applications/helium-browser.desktop \
+          --replace-fail "@@startup_wm_class" "helium-browser"
+        '' else ''
         substituteInPlace $out/share/applications/helium-browser.desktop \
           --replace-fail "[Desktop Entry]" "[Desktop Entry]''\nStartupWMClass=helium-browser"
+        ''}
 
         if grep -F '@@' $out/share/applications/helium-browser.desktop ; then
           echo "error: helium-browser.desktop contains unsubstituted placeholders" >&2
