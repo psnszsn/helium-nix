@@ -1,14 +1,14 @@
 {
-  "heliumVersion": "0.19.2",
-  "chromiumVersion": "155.0.8059.39",
+  "heliumVersion": "0.20.1",
+  "chromiumVersion": "156.0.8078.47",
   "deps": {
     "helium": {
-      "rev": "9aa23f3cd9e5e6bcb91c8c8029b738e8da2de493",
-      "hash": "sha256-ZYch2HxriP3pV67aYPcTahEhvyzdvcStkA5tQVgDvGU="
+      "rev": "f29a25968e483f8bb85e47829ccd487bbe229199",
+      "hash": "sha256-3wAscj2zS/dbat8n3LFKTPKwp9MCDrQ+UQZY/2htXJ4="
     },
     "helium-linux": {
-      "rev": "714f30178ebb78c22229094f4b989c5d2e199b40",
-      "hash": "sha256-yr5JIGRdE9t2lFQfN6UVqb39WG85IfcnJD3zQ5dqQCk="
+      "rev": "473c0f72d7db2e8492f0fa975b8544bc719bb027",
+      "hash": "sha256-mHzDrZ9lA3hXDV8UIdqmmLjmrdTS6Vsc8CCgWcQWdTM="
     },
     "extras": {
       "ublock": {
@@ -16,8 +16,8 @@
         "hash": "sha256-SSFGdPfGxHTmDaZHwFvShGOx96VbKisKU+nSl+9788Y="
       },
       "onboarding": {
-        "url": "https://github.com/imputnet/helium-onboarding/releases/download/202609160835/helium-onboarding-202609160835.tar.gz",
-        "hash": "sha256-Nc54LclTS1v/Wa95N/IskBecqWEIg6yy4NaYzG95k2Y="
+        "url": "https://github.com/imputnet/helium-onboarding/releases/download/202610161403/helium-onboarding-202610161403.tar.gz",
+        "hash": "sha256-s13m3reeCGT1Ogpw6ogZzs1GhDo7BRiiDdamt9JpAKw="
       },
       "searchEngines": {
         "url": "https://github.com/imputnet/helium-nonfree-assets/releases/download/202609082320/nonfree-search-engines-data-202609082320.tar.gz",
