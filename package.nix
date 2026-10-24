@@ -32,7 +32,6 @@
   enableWideVine ? false,
   commandLineArgs ? "",
   enableBreakpoint ? false, # add breakpointHook for iterative development
-  maxBuildJobs ? 8,
 }:
 
 let
@@ -88,13 +87,6 @@ let
       ] ++ lib.optionals enableBreakpoint [
         breakpointHook
       ];
-
-      # V8 compilation can exhaust memory when using every core on a large builder.
-      preBuild = (base.preBuild or "") + ''
-        if (( NIX_BUILD_CORES > ${toString maxBuildJobs} )); then
-          NIX_BUILD_CORES=${toString maxBuildJobs}
-        fi
-      '';
 
       postPatch =
         ''
